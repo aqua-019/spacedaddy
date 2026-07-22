@@ -136,20 +136,24 @@ header.scrolled{background:rgba(7,11,8,.82);-webkit-backdrop-filter:blur(12px);b
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* ================= STATS PANEL — slide-down strip ================= */
-.stats-panel{position:fixed;top:76px;left:0;right:0;z-index:70;
-  background:rgba(9,14,10,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line-2);
-  transform:translateY(-110%);visibility:hidden;
-  transition:transform var(--t-med) var(--ease),visibility 0s var(--t-med)}
-.stats-panel.open{transform:translateY(0);visibility:visible;transition:transform var(--t-med) var(--ease)}
-.stats-inner{max-width:var(--wrap);margin:0 auto;padding:var(--s2) var(--s3)}
+.stats-panel{position:fixed;top:84px;left:auto;right:max(16px,calc((100vw - var(--wrap))/2 + 24px));z-index:70;
+  width:min(520px,calc(100vw - 32px));
+  background:rgba(9,14,10,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid var(--line-2);box-shadow:0 24px 60px rgba(0,0,0,.5);
+  transform:translateY(-8px);opacity:0;visibility:hidden;
+  transition:transform var(--t-med) var(--ease),opacity var(--t-med) var(--ease),visibility 0s var(--t-med)}
+.stats-panel::before{content:"";position:absolute;top:-1px;left:-1px;width:10px;height:10px;border-top:2px solid var(--primary);border-left:2px solid var(--primary)}
+.stats-panel::after{content:"";position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-bottom:2px solid var(--primary);border-right:2px solid var(--primary)}
+.stats-panel.open{transform:translateY(0);opacity:1;visibility:visible;
+  transition:transform var(--t-med) var(--ease),opacity var(--t-med) var(--ease)}
+.stats-inner{padding:12px 14px}
 .stats-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:var(--s2);
   font-family:var(--font-m);font-size:.64rem;letter-spacing:.16em;color:var(--faint);text-transform:uppercase}
 .stats-top .r{display:flex;gap:8px;align-items:center}
 .stats-top button{background:none;border:1px solid var(--line);color:var(--muted);cursor:pointer;
   min-width:34px;min-height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px}
 .stats-top button:hover{border-color:var(--primary);color:var(--primary)}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .stat-cell{background:var(--surface);padding:14px 16px}
 .stat-cell .k{font-family:var(--font-m);font-variant-numeric:tabular-nums;font-size:1.02rem;font-weight:600;color:var(--text);display:block;white-space:nowrap}
 .stat-cell .l{font-family:var(--font-m);font-size:.58rem;letter-spacing:.16em;color:var(--faint);text-transform:uppercase;display:block;margin-top:4px}
@@ -303,8 +307,12 @@ blockquote.concept .stonks{color:var(--accent)}
   color:var(--faint);text-transform:uppercase;text-align:center}
 .chart-cell .chart-box{position:relative;aspect-ratio:16/10;max-height:480px;background:#0A0F0B}
 .chart-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.chart-skel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-m);font-size:.7rem;letter-spacing:.2em;color:var(--faint);text-transform:uppercase}
+.chart-skel{position:absolute;inset:0;z-index:2;background:#0A0F0B;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-m);font-size:.7rem;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;text-align:center;padding:16px}
+.chart-ctl{display:inline-flex;gap:6px}
+.hbtn{background:none;border:1px solid var(--line);color:var(--muted);cursor:pointer;font-family:var(--font-m);
+  font-size:.58rem;letter-spacing:.14em;padding:5px 9px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center}
+.hbtn:hover{border-color:var(--primary);color:var(--primary)}
 .dex-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s2)}
 
 /* ================= TOKEN ================= */
@@ -370,7 +378,8 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
 }
 @media (max-width:640px){
   .stats{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:repeat(auto-fit,minmax(112px,1fr))}
+  .stat-cell{padding:11px 12px}
+  .stat-cell .k{font-size:.85rem}
 }
 @media (max-width:480px){
   .brand .brand-word{display:none}
@@ -424,8 +433,8 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#concept">CONCEPT</a>
-      <a href="#lore">LORE</a>
       <a href="#mechanics">MECHANICS</a>
+      <a href="#lore">LORE</a>
       <a href="#swap">SWAP</a>
       <a href="#token">TOKEN</a>
     </nav>
@@ -555,10 +564,45 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
     </div>
   </section>
 
-  <!-- ============ 02 LORE ============ -->
+  <!-- ============ 02 MECHANICS ============ -->
+  <section class="section" id="mechanics">
+    <div class="wrap">
+      <div class="sec-head rv"><span class="sec-idx">02 //</span><h2>Your ETH becomes SpaceX stonk.</h2></div>
+      <div class="sec-rule rv"></div>
+      <p class="lede rv">Buy the meme — the machine underneath presses your ETH into tokenized SpaceX exposure. The pool itself is denominated in SPCX.</p>
+      <div class="steps">
+        <div class="cell step rv" style="--i:0">
+          <div class="cell-head"><span>STEP 01</span></div>
+          <div class="cell-body">
+            <h3>Swap ETH for $SPACEDADDY</h3>
+            <p>Route through Uniswap on Robinhood Chain — Robinhood's Ethereum L2.</p>
+          </div>
+        </div>
+        <span class="arrow rv" style="--i:1" aria-hidden="true"><svg class="icon" style="transform:rotate(-90deg)"><use href="#i-down"/></svg></span>
+        <div class="cell step rv" style="--i:2">
+          <div class="cell-head"><span>STEP 02</span></div>
+          <div class="cell-body">
+            <h3>Your buy presses into SPCX</h3>
+            <p>The pool pairs SPACEDADDY against SPCX — tokenized SpaceX stock. Every buy trades ETH into the SpaceX-denominated pool. Meme in front, stonk behind.</p>
+          </div>
+        </div>
+        <span class="arrow rv" style="--i:3" aria-hidden="true"><svg class="icon" style="transform:rotate(-90deg)"><use href="#i-down"/></svg></span>
+        <div class="cell step rv" style="--i:4">
+          <div class="cell-head"><span>STEP 03</span></div>
+          <div class="cell-body">
+            <h3>Memetics × gravity</h3>
+            <p>You hold the culture coin wired to space-grade tokenized stonks. To Mars, with receipts.</p>
+          </div>
+        </div>
+      </div>
+      <p class="mech-note rv"><b>Verify everything onchain.</b> Mechanism as designed by the SPACEDADDY deployer — check the contract on Blockscout, the pool on Dexscreener, and do your own research before aping.</p>
+    </div>
+  </section>
+
+  <!-- ============ 03 LORE ============ -->
   <section class="section" id="lore">
     <div class="wrap">
-      <div class="sec-head rv"><span class="sec-idx">02 //</span><h2>The prophecy card</h2></div>
+      <div class="sec-head rv"><span class="sec-idx">03 //</span><h2>The prophecy card</h2></div>
       <div class="sec-rule rv"></div>
       <p class="lede rv">SPACEDADDY didn't start as a token. It started as a Rare Pepe — and the card called everything.</p>
       <div class="lore-grid">
@@ -594,41 +638,6 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
     </div>
   </section>
 
-  <!-- ============ 03 MECHANICS ============ -->
-  <section class="section" id="mechanics">
-    <div class="wrap">
-      <div class="sec-head rv"><span class="sec-idx">03 //</span><h2>Your ETH becomes SpaceX stonk.</h2></div>
-      <div class="sec-rule rv"></div>
-      <p class="lede rv">Buy the meme — the machine underneath presses your ETH into tokenized SpaceX exposure. The pool itself is denominated in SPCX.</p>
-      <div class="steps">
-        <div class="cell step rv" style="--i:0">
-          <div class="cell-head"><span>STEP 01</span></div>
-          <div class="cell-body">
-            <h3>Swap ETH for $SPACEDADDY</h3>
-            <p>Route through Uniswap on Robinhood Chain — Robinhood's Ethereum L2.</p>
-          </div>
-        </div>
-        <span class="arrow rv" style="--i:1" aria-hidden="true"><svg class="icon" style="transform:rotate(-90deg)"><use href="#i-down"/></svg></span>
-        <div class="cell step rv" style="--i:2">
-          <div class="cell-head"><span>STEP 02</span></div>
-          <div class="cell-body">
-            <h3>Your buy presses into SPCX</h3>
-            <p>The pool pairs SPACEDADDY against SPCX — tokenized SpaceX stock. Every buy trades ETH into the SpaceX-denominated pool. Meme in front, stonk behind.</p>
-          </div>
-        </div>
-        <span class="arrow rv" style="--i:3" aria-hidden="true"><svg class="icon" style="transform:rotate(-90deg)"><use href="#i-down"/></svg></span>
-        <div class="cell step rv" style="--i:4">
-          <div class="cell-head"><span>STEP 03</span></div>
-          <div class="cell-body">
-            <h3>Memetics × gravity</h3>
-            <p>You hold the culture coin wired to space-grade tokenized stonks. To Mars, with receipts.</p>
-          </div>
-        </div>
-      </div>
-      <p class="mech-note rv"><b>Verify everything onchain.</b> Mechanism as designed by the SPACEDADDY deployer — check the contract on Blockscout, the pool on Dexscreener, and do your own research before aping.</p>
-    </div>
-  </section>
-
   <!-- ============ 04 SWAP ============ -->
   <section class="section" id="swap">
     <div class="wrap">
@@ -641,10 +650,10 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
           <div class="cell-body" style="padding:14px">
             <div class="uni-shell">
               <nav class="uni-tabs" aria-label="Swap modes">
-                <a class="on" href="https://app.uniswap.org/swap?outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">Swap</a>
-                <a href="https://app.uniswap.org/limit" target="_blank" rel="noopener">Limit</a>
-                <a href="https://app.uniswap.org/buy" target="_blank" rel="noopener">Buy</a>
-                <a href="https://app.uniswap.org/sell" target="_blank" rel="noopener">Sell</a>
+                <a class="on" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">Swap</a>
+                <a href="https://app.uniswap.org/limit?chain=robinhood" target="_blank" rel="noopener">Limit</a>
+                <a href="https://app.uniswap.org/buy?chain=robinhood" target="_blank" rel="noopener">Buy</a>
+                <a href="https://app.uniswap.org/sell?chain=robinhood" target="_blank" rel="noopener">Sell</a>
               </nav>
               <div class="uni-card">
                 <div class="uni-lbl">Sell</div>
@@ -663,7 +672,7 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
                 </div>
                 <div class="uni-sub" id="uni-out-usd">$—</div>
               </div>
-              <a class="uni-review" href="https://app.uniswap.org/swap?outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">Review</a>
+              <a class="uni-review" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">Review</a>
               <div class="uni-foot">
                 <span id="uni-rate">1 SPACEDADDY = —</span>
                 <span>ROUTED VIA UNISWAP</span>
@@ -673,7 +682,7 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
           </div>
         </div>
         <div class="cell chart-cell rv" style="--i:1">
-          <div class="cell-head"><span>SD·CHART·LIVE</span><span>SRC: DEXSCREENER</span></div>
+          <div class="cell-head"><span>SD·CHART·LIVE · SRC DEXSCREENER</span><span class="chart-ctl"><button class="hbtn" id="chart-retry" type="button">RETRY</button><a class="hbtn" href="https://dexscreener.com/robinhood/0x07930ce36044ea8de7fef71869013d32f17c69b85a041eaf690fcaf67fa6055d" target="_blank" rel="noopener">OPEN ↗</a></span></div>
           <div class="chart-box" id="chart-box">
             <div class="chart-skel" id="chart-skel">LOADING CHART FEED…</div>
           </div>
@@ -682,7 +691,7 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
               <a class="btn btn-outline" href="https://dexscreener.com/robinhood/0x07930ce36044ea8de7fef71869013d32f17c69b85a041eaf690fcaf67fa6055d" target="_blank" rel="noopener">
                 <svg class="icon icon-s" aria-hidden="true"><use href="#i-candles"/></svg> DEXSCREENER <svg class="icon icon-s" aria-hidden="true"><use href="#i-ext"/></svg>
               </a>
-              <a class="btn btn-outline" href="https://app.uniswap.org/swap?outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">
+              <a class="btn btn-outline" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">
                 <svg class="icon icon-s" aria-hidden="true"><use href="#i-swap"/></svg> UNISWAP <svg class="icon icon-s" aria-hidden="true"><use href="#i-ext"/></svg>
               </a>
             </div>
@@ -783,6 +792,7 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
       <a class="brand" href="#top">SPACEDADDY</a>
       <nav class="links" aria-label="Footer">
         <a href="#concept">CONCEPT</a>
+        <a href="#mechanics">MECHANICS</a>
         <a href="#lore">LORE</a>
         <a href="#swap">SWAP</a>
         <a href="#token">TOKEN</a>
@@ -1002,22 +1012,40 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
   uniIn.addEventListener("input", uniRender);
   SD.subscribe(uniRender);
 
-  /* ============ CHART LAZY LOADER (WidgetLoader pattern) ============ */
-  var chartBox = document.getElementById("chart-box"), chartLoaded = false;
+  /* ============ CHART LOADER — lazy + watchdog + retry ============ */
+  var chartBox = document.getElementById("chart-box");
+  var chartSeq = 0, chartTimer = null, chartStarted = false;
+  function chartSkel(msg){
+    var s = chartBox.querySelector(".chart-skel");
+    if(!s){ s = document.createElement("div"); s.className = "chart-skel"; chartBox.appendChild(s); }
+    s.textContent = msg; return s;
+  }
+  function loadChart(){
+    chartSeq++;
+    var seq = chartSeq, ok = false;
+    var old = chartBox.querySelector("iframe"); if(old) old.remove();
+    chartSkel("LOADING CHART FEED\u2026");
+    if(chartTimer) clearTimeout(chartTimer);
+    var f = document.createElement("iframe");
+    f.src = "https://dexscreener.com/robinhood/0x07930ce36044ea8de7fef71869013d32f17c69b85a041eaf690fcaf67fa6055d?embed=1&theme=dark&trades=0&info=0&r=" + seq;
+    f.title = "SPACEDADDY live chart \u2014 Dexscreener";
+    f.addEventListener("load", function(){
+      if(seq !== chartSeq) return;
+      ok = true;
+      var s = chartBox.querySelector(".chart-skel"); if(s) s.remove();
+    });
+    chartTimer = setTimeout(function(){
+      if(seq === chartSeq && !ok) chartSkel("FEED SLOW \u2014 HIT RETRY, OR OPEN DIRECT ON DEXSCREENER");
+    }, 12000);
+    chartBox.appendChild(f);
+  }
   var cio = new IntersectionObserver(function(es){
     es.forEach(function(e){
-      if(e.isIntersecting && !chartLoaded){
-        chartLoaded = true; cio.disconnect();
-        var f = document.createElement("iframe");
-        f.src = "https://dexscreener.com/robinhood/0x07930ce36044ea8de7fef71869013d32f17c69b85a041eaf690fcaf67fa6055d?embed=1&theme=dark&trades=0&info=0";
-        f.title = "SPACEDADDY live chart — Dexscreener";
-        f.loading = "lazy";
-        f.addEventListener("load", function(){ var s = document.getElementById("chart-skel"); if(s) s.remove(); });
-        chartBox.appendChild(f);
-      }
+      if(e.isIntersecting && !chartStarted){ chartStarted = true; cio.disconnect(); loadChart(); }
     });
   }, { rootMargin: "300px 0px" });
   cio.observe(chartBox);
+  document.getElementById("chart-retry").addEventListener("click", function(){ chartStarted = true; loadChart(); });
 
   /* ============ REVEALS ============ */
   var io = new IntersectionObserver(function(entries){
