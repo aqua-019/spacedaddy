@@ -314,6 +314,36 @@ blockquote.concept .stonks{color:var(--accent)}
   font-size:.58rem;letter-spacing:.14em;padding:5px 9px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center}
 .hbtn:hover{border-color:var(--primary);color:var(--primary)}
 .dex-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s2)}
+.txfeed{border-top:1px solid var(--line)}
+.txfeed-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 16px;
+  border-bottom:1px solid var(--line);font-family:var(--font-m);font-size:.58rem;letter-spacing:.16em;
+  color:var(--faint);text-transform:uppercase}
+.txfeed-head .r{display:inline-flex;align-items:center;gap:8px}
+.txfeed-head .dot{width:5px;height:5px;background:var(--primary);animation:pulse 2.4s var(--ease) infinite}
+.txfeed-list{max-height:168px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--primary-deep) transparent}
+.txfeed-list::-webkit-scrollbar{width:6px}
+.txfeed-list::-webkit-scrollbar-thumb{background:var(--primary-deep)}
+.txfeed-list::-webkit-scrollbar-track{background:transparent}
+.txrow{display:grid;grid-template-columns:58px minmax(0,1fr) auto auto auto;gap:12px;align-items:center;
+  padding:7px 16px;border-bottom:1px solid rgba(122,222,155,.07);
+  font-family:var(--font-m);font-size:.7rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.txrow:last-child{border-bottom:none}
+.txrow .side{font-weight:600;letter-spacing:.1em}
+.txrow .side.buy{color:var(--up)}
+.txrow .side.sell{color:var(--down)}
+.txrow .side.xfer{color:var(--faint)}
+.txrow .amt{color:var(--text);overflow:hidden;text-overflow:ellipsis}
+.txrow .usd{color:var(--muted)}
+.txrow .tm{color:var(--faint)}
+.txrow a{color:var(--faint);text-decoration:none}
+.txrow a:hover{color:var(--primary)}
+.txrow.new{animation:txflash 1.4s var(--ease) 1}
+@keyframes txflash{0%{background:rgba(74,222,128,.16)}100%{background:transparent}}
+.txempty{padding:18px 16px;font-family:var(--font-m);font-size:.64rem;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+@media (max-width:640px){
+  .txrow{grid-template-columns:46px minmax(0,1fr) auto auto;font-size:.62rem;gap:8px;padding:7px 12px}
+  .txrow .usd{display:none}
+}
 
 /* ================= TOKEN ================= */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:var(--s2)}
@@ -615,9 +645,10 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
         </figure>
         <div class="tl rv">
           <div class="tl-node">
-            <span class="tl-date">~2016 // GENESIS</span>
+            <span class="tl-date">2016.10.01 // GENESIS</span>
             <h3>The card is minted</h3>
-            <p>In the original Rare Pepe wave on Counterparty — the meme-card protocol riding Bitcoin — the SPACEDADDY card enters canon: "GOD EMPEROR DADDY MUSK," green-faced before Mars, capsule inbound.</p>
+            <p>On October 1st, 2016 the token "Spacedaddy" was minted by an anonymous artist on the Bitcoin blockchain as part of the legendary Rare Pepe Directory. It was the first ever depiction of Elon Musk to be minted on chain — and it documented his plans to populate Mars.</p>
+            <p style="margin-top:8px">The card enters canon as "GOD EMPEROR DADDY MUSK": green-faced before Mars, capsule inbound, riding Counterparty — the meme-card protocol atop Bitcoin.</p>
             <span class="q">"SEND PEOPLE TO DIE ON MARS FOR GLORIOUS SPACE FUTURE — COST: 9999 FALCON HEAVYS."</span>
             <p style="margin-top:8px"><span class="src">CARD TEXT · <a href="https://pepe.wtf/asset/SPACEDADDY" target="_blank" rel="noopener">SOURCE</a></span></p>
           </div>
@@ -651,9 +682,6 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
             <div class="uni-shell">
               <nav class="uni-tabs" aria-label="Swap modes">
                 <a class="on" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">Swap</a>
-                <a href="https://app.uniswap.org/limit?chain=robinhood" target="_blank" rel="noopener">Limit</a>
-                <a href="https://app.uniswap.org/buy?chain=robinhood" target="_blank" rel="noopener">Buy</a>
-                <a href="https://app.uniswap.org/sell?chain=robinhood" target="_blank" rel="noopener">Sell</a>
               </nav>
               <div class="uni-card">
                 <div class="uni-lbl">Sell</div>
@@ -685,6 +713,13 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
           <div class="cell-head"><span>SD·CHART·LIVE · SRC DEXSCREENER</span><span class="chart-ctl"><button class="hbtn" id="chart-retry" type="button">RETRY</button><a class="hbtn" href="https://dexscreener.com/robinhood/0x07930ce36044ea8de7fef71869013d32f17c69b85a041eaf690fcaf67fa6055d" target="_blank" rel="noopener">OPEN ↗</a></span></div>
           <div class="chart-box" id="chart-box">
             <div class="chart-skel" id="chart-skel">LOADING CHART FEED…</div>
+          </div>
+          <div class="txfeed">
+            <div class="txfeed-head">
+              <span>SD·TXFEED // LIVE SWAPS · SRC BLOCKSCOUT</span>
+              <span class="r"><span class="dot" aria-hidden="true"></span><span id="txfeed-status">SYNCING…</span></span>
+            </div>
+            <div class="txfeed-list" id="txfeed-list" tabindex="0" aria-label="Live SPACEDADDY transaction feed"></div>
           </div>
           <div class="cell-body" style="padding:16px">
             <div class="dex-row">
@@ -1046,6 +1081,80 @@ footer{border-top:1px solid var(--line);padding:var(--s5) 0 140px;margin-top:var
   }, { rootMargin: "300px 0px" });
   cio.observe(chartBox);
   document.getElementById("chart-retry").addEventListener("click", function(){ chartStarted = true; loadChart(); });
+
+  /* ============ TX FEED — live swaps via Blockscout transfers ============ */
+  var txList = document.getElementById("txfeed-list");
+  var txStatus = document.getElementById("txfeed-status");
+  var TX_API = "https://robinhoodchain.blockscout.com/api/v2/tokens/0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18/transfers";
+  var txSeen = {}, txStarted = false, txTimer = null, txFirst = true;
+  function hubOf(items){
+    var tally = {};
+    for(var i = 0; i < items.length; i++){
+      var f = items[i].from || {}, t = items[i].to || {};
+      if(((f.name || "").indexOf("PoolManager") > -1)) return (f.hash || "").toLowerCase();
+      if(((t.name || "").indexOf("PoolManager") > -1)) return (t.hash || "").toLowerCase();
+      if(f.is_contract){ var fh = (f.hash || "").toLowerCase(); tally[fh] = (tally[fh] || 0) + 1; }
+      if(t.is_contract){ var th = (t.hash || "").toLowerCase(); tally[th] = (tally[th] || 0) + 1; }
+    }
+    var best = null, n = 0;
+    for(var k in tally){ if(tally[k] > n){ n = tally[k]; best = k; } }
+    return n >= items.length * .3 ? best : null;
+  }
+  function fmtAmt(raw){
+    var x = raw / 1e18;
+    if(x >= 1e6) return (x / 1e6).toFixed(2) + "M";
+    if(x >= 1e3) return Math.round(x).toLocaleString("en-US");
+    return x.toFixed(2);
+  }
+  function txPoll(){
+    fetch(TX_API).then(function(r){ return r.json(); }).then(function(j){
+      var items = (j && j.items) || [];
+      if(!items.length){
+        if(txFirst) txList.innerHTML = '<div class="txempty">NO RECENT TRANSFERS</div>';
+        txStatus.textContent = "UPDATED " + new Date().toLocaleTimeString("en-US", {hour12:false});
+        return;
+      }
+      var hub = hubOf(items);
+      var pd = SD.get().pair, price = pd && pd.priceUsd ? +pd.priceUsd : null;
+      for(var i = items.length - 1; i >= 0; i--){
+        var it = items[i];
+        var hash = /^0x[0-9a-fA-F]{64}$/.test(it.transaction_hash || "") ? it.transaction_hash : "";
+        var key = hash + ":" + (it.log_index != null ? it.log_index : i);
+        if(txSeen[key]) continue;
+        txSeen[key] = 1;
+        var fh = ((it.from || {}).hash || "").toLowerCase(), th = ((it.to || {}).hash || "").toLowerCase();
+        var side = hub ? (fh === hub ? "buy" : (th === hub ? "sell" : "xfer")) : "xfer";
+        var amt = +((it.total || {}).value || 0);
+        var usd = price != null ? "\u2248$" + (amt / 1e18 * price).toLocaleString("en-US", {maximumFractionDigits:2}) : "";
+        var tm = it.timestamp ? new Date(it.timestamp).toLocaleTimeString("en-US", {hour12:false}) : "";
+        var lbl = side === "buy" ? "\u25B2 BUY" : side === "sell" ? "\u25BC SELL" : "\u2022 XFER";
+        var row = document.createElement("div");
+        row.className = "txrow" + (txFirst ? "" : " new");
+        row.innerHTML = '<span class="side ' + side + '">' + lbl + '</span>'
+          + '<span class="amt">' + fmtAmt(amt) + ' SD</span>'
+          + '<span class="usd">' + usd + '</span>'
+          + '<span class="tm">' + tm + '</span>'
+          + (hash ? '<a href="https://robinhoodchain.blockscout.com/tx/' + hash + '" target="_blank" rel="noopener" aria-label="View transaction on Blockscout">' + hash.slice(0, 6) + '\u2026\u2197</a>' : '<span></span>');
+        var emp = txList.querySelector(".txempty"); if(emp) emp.remove();
+        txList.insertBefore(row, txList.firstChild);
+      }
+      while(txList.children.length > 60) txList.removeChild(txList.lastChild);
+      txStatus.textContent = "UPDATED " + new Date().toLocaleTimeString("en-US", {hour12:false});
+      txFirst = false;
+    }).catch(function(){
+      if(txFirst) txList.innerHTML = '<div class="txempty">FEED UNAVAILABLE \u2014 OPEN DEXSCREENER FOR LIVE TRADES</div>';
+      txStatus.textContent = "RETRYING\u2026";
+    });
+  }
+  function txStart(){
+    if(txTimer) return;
+    txPoll();
+    txTimer = setInterval(function(){ if(!document.hidden) txPoll(); }, 20000);
+  }
+  var tio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting && !txStarted){ txStarted = true; tio.disconnect(); txStart(); } });
+  }, { rootMargin: "200px 0px" });
+  tio.observe(txList);
 
   /* ============ REVEALS ============ */
   var io = new IntersectionObserver(function(entries){
