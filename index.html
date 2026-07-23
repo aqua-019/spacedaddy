@@ -176,7 +176,7 @@ header.scrolled{background:rgba(7,11,8,.85);-webkit-backdrop-filter:blur(10px);b
 @keyframes heroin{from{opacity:0;transform:translateY(38px) scale(.985);filter:blur(12px)}to{opacity:1;transform:none;filter:none}}
 .sys-strip{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-m);font-size:.68rem;letter-spacing:.2em;color:var(--primary);border:1px solid var(--line-2);padding:9px 16px;text-transform:uppercase;background:rgba(7,11,8,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);position:relative;z-index:1}
 .sys-strip .dot{width:6px;height:6px;background:var(--primary);animation:pulse 2.4s var(--ease) infinite}
-.hero-stage{position:relative;margin-top:8px;z-index:2}
+.hero-stage{position:relative;margin-top:clamp(68px,10vh,120px);z-index:2}
 .logo-orb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(44vh,420px);aspect-ratio:1}
 .orb-float{position:absolute;inset:0;animation:float 8s ease-in-out infinite;will-change:transform}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
@@ -428,6 +428,7 @@ body.perf-lite .pk{animation-duration:3s}
 .split-ctas{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
 .split-ctas .btn{min-height:56px}
 @media (max-width:520px){.split-ctas{grid-template-columns:1fr}}
+@media (max-height:820px){.hero-stage{margin-top:44px}}
 footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
 .foot{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start}
 .foot .links{display:flex;gap:4px;flex-wrap:wrap}
