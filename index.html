@@ -498,6 +498,8 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
 }
 @media (max-width:640px){
   .stats{grid-template-columns:1fr}
+  .tstat{padding:14px 16px}
+  .tstat .k{font-size:1.1rem}
   .stat-cell{padding:11px 12px}
   .stat-cell .k{font-size:.85rem}
   .txrow{grid-template-columns:46px minmax(0,1fr) auto;font-size:.62rem;gap:8px;padding:7px 12px}
@@ -1081,6 +1083,10 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
         <div class="tstat"><span class="k">$SPACEDADDY</span><span class="l">Ticker</span></div>
         <div class="tstat"><span class="k">ERC-20</span><span class="l">Standard · 18 dec</span></div>
         <div class="tstat"><span class="k">SPCX</span><span class="l">Quote pair · tokenized SpaceX</span></div>
+        <div class="tstat"><span class="k" data-s="holders">···</span><span class="l">Holders · Blockscout live</span></div>
+        <div class="tstat"><span class="k" data-s="transfers">···</span><span class="l">Transfers · Blockscout live</span></div>
+        <div class="tstat"><span class="k" data-s="mcap">···</span><span class="l">Market cap · Dexscreener</span></div>
+        <div class="tstat"><span class="k" data-s="vol">···</span><span class="l">24h volume · Dexscreener</span></div>
       </div>
       <div class="cell rv" style="--i:1">
         <div class="cell-head"><span>SD·CONTRACT·MAIN</span><span class="dot"></span></div>
@@ -1423,7 +1429,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     setStat("vol", fBig(p.volume && p.volume.h24));
     setStat("fdv", fBig(p.fdv));
     setStat("mcap", fBig(p.marketCap));
-    var tx = p.txns && p.txns.h24; setStat("txns", tx ? (tx.buys + " / " + tx.sells) : ", ");
+    var tx = p.txns && p.txns.h24; setStat("txns", tx ? (tx.buys + " / " + tx.sells) : "···");
     updatedEl.textContent = "UPDATED " + new Date(d.at).toLocaleTimeString("en-US", {hour12:false});
     var pc24 = p.priceChange ? +p.priceChange.h24 : null;
     document.body.setAttribute("data-dir", pc24 != null && pc24 < 0 ? "down" : "up");
@@ -1431,6 +1437,20 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
       el.textContent = fUsd(p.priceUsd) + (pc24 == null ? "" : (pc24 >= 0 ? " \u25B2" : " \u25BC"));
     });
   });
+
+  /* ============ TOKEN COUNTERS (BLOCKSCOUT) ============ */
+  (function(){
+    var API = "https://robinhoodchain.blockscout.com/api/v2/tokens/0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18/counters";
+    function fCount(v){ v = +v; return isNaN(v) ? "···" : v.toLocaleString("en-US"); }
+    function pull(){
+      fetch(API).then(function(r){ return r.json(); }).then(function(j){
+        setStat("holders", fCount(j.token_holders_count));
+        setStat("transfers", fCount(j.transfers_count));
+      }).catch(function(){});
+    }
+    pull();
+    setInterval(function(){ if(!document.hidden) pull(); }, 120000);
+  })();
 
   /* ============ UNIDADDY CALC ============ */
   var uniIn = document.getElementById("uni-in");
@@ -1442,7 +1462,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     var outUsdEl = document.getElementById("uni-out-usd");
     var rateEl = document.getElementById("uni-rate");
     if(p) rateEl.textContent = "1 SPACEDADDY = " + fUsd(p.priceUsd) + (d.ethUsd ? " (" + (p.priceUsd / d.ethUsd).toPrecision(2) + " ETH)" : "");
-    if(!p || isNaN(v) || v <= 0 || !d.ethUsd){ inUsdEl.textContent = "$, "; outEl.textContent = ", "; outUsdEl.textContent = "$, "; return; }
+    if(!p || isNaN(v) || v <= 0 || !d.ethUsd){ inUsdEl.textContent = "$···"; outEl.textContent = "···"; outUsdEl.textContent = "$···"; return; }
     var inUsd = v * d.ethUsd;
     inUsdEl.textContent = "$" + inUsd.toLocaleString("en-US", {maximumFractionDigits:2});
     var out = inUsd / (+p.priceUsd);
@@ -1468,14 +1488,14 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     if(chartTimer) clearTimeout(chartTimer);
     var f = document.createElement("iframe");
     f.src = "https://dexscreener.com/robinhood/0x07930ce36044ea8de7fef71869013d32f17c69b85a041eaf690fcaf67fa6055d?embed=1&theme=dark&trades=0&info=0&r=" + seq;
-    f.title = "SPACEDADDY live chart \u2014 Dexscreener";
+    f.title = "SPACEDADDY live chart \u00B7 Dexscreener";
     f.addEventListener("load", function(){
       if(seq !== chartSeq) return;
       ok = true;
       var s = chartBox.querySelector(".chart-skel"); if(s) s.remove();
     });
     chartTimer = setTimeout(function(){
-      if(seq === chartSeq && !ok) chartSkel("FEED SLOW \u2014 HIT RETRY, OR OPEN DIRECT ON DEXSCREENER");
+      if(seq === chartSeq && !ok) chartSkel("FEED SLOW \u00B7 HIT RETRY, OR OPEN DIRECT ON DEXSCREENER");
     }, 12000);
     chartBox.appendChild(f);
   }
@@ -1544,7 +1564,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
       txStatus.textContent = "UPD " + new Date().toLocaleTimeString("en-US", {hour12:false});
       txFirst = false;
     }).catch(function(){
-      if(txFirst) txList.innerHTML = '<div class="txempty">FEED UNAVAILABLE \u2014 OPEN DEXSCREENER FOR LIVE TRADES</div>';
+      if(txFirst) txList.innerHTML = '<div class="txempty">FEED UNAVAILABLE \u00B7 OPEN DEXSCREENER FOR LIVE TRADES</div>';
       txStatus.textContent = "RETRYING\u2026";
     });
   }
@@ -1671,9 +1691,9 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     if(!route || !cap) return;
     var kids = Array.prototype.slice.call(route.children);
     var CAPS = {
-      buy: "\u25B8 THE LAST LEG BEFORE THE MEME IS ALWAYS A SPACEX-STOCK MARKET BUY \u2014 THE POOL ACCEPTS NOTHING ELSE.",
-      sell: "\u25B8 EXITS RUN THE AIRLOCK IN REVERSE \u2014 THE MEME SELLS INTO SPACEX STOCK, THE STOCK SELLS INTO DOLLARS, THE DOLLARS UNWRAP TO ETH.",
-      fee: "\u25B8 EVERY TRADE \u2014 BUY OR SELL \u2014 SHEDS \u22480.9% IN SPCX TO THE POOL'S COLLECTOR. THE MACHINE ACCRUES SPACEX STOCK EITHER WAY."
+      buy: "\u25B8 THE LAST LEG BEFORE THE MEME IS ALWAYS A SPACEX-STOCK MARKET BUY. THE POOL ACCEPTS NOTHING ELSE.",
+      sell: "\u25B8 EXITS RUN THE AIRLOCK IN REVERSE. THE MEME SELLS INTO SPACEX STOCK, THE STOCK SELLS INTO DOLLARS, THE DOLLARS UNWRAP TO ETH.",
+      fee: "\u25B8 EVERY TRADE, BUY OR SELL, SHEDS \u22480.9% IN SPCX TO THE POOL'S COLLECTOR. THE MACHINE ACCRUES SPACEX STOCK EITHER WAY."
     };
     var DIM = { buy: [], sell: [], fee: [0, 1, 2, 3] };
     document.querySelectorAll(".mbtn").forEach(function(b){
