@@ -519,18 +519,12 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
 /* safe-buy + brand pill + orb interactions */
 .uni-brand{font-family:var(--font-d);font-weight:700;font-size:.95rem;color:var(--primary);
   padding:8px 14px;border-radius:999px;border:1px solid rgba(204,255,0,.35);margin-left:4px;letter-spacing:.02em}
-.safe-buy{margin-top:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);position:relative}
-.safe-buy::before{content:"";position:absolute;top:-1px;left:-1px;width:10px;height:10px;border-top:2px solid var(--primary);border-left:2px solid var(--primary)}
-.sb-head{padding:10px 16px;border-bottom:1px solid var(--line);font-family:var(--font-m);font-size:.6rem;letter-spacing:.18em;color:var(--faint);text-transform:uppercase}
-.sb-list{list-style:none;counter-reset:sb;padding:6px 16px}
-.sb-list li{counter-increment:sb;position:relative;padding:11px 0 11px 34px;border-bottom:1px solid rgba(204,255,0,.07);
-  color:var(--muted);font-size:.88rem;line-height:1.65}
-.sb-list li:last-child{border-bottom:none}
-.sb-list li::before{content:"0" counter(sb);position:absolute;left:0;top:13px;font-family:var(--font-m);font-size:.62rem;letter-spacing:.1em;color:var(--accent)}
-.sb-list b{color:var(--text)}
-.sb-warn{margin:4px 16px 14px;padding:12px 14px;border-left:2px solid var(--primary);background:rgba(204,255,0,.06);
-  color:var(--muted);font-size:.88rem;line-height:1.6}
-.sb-warn b{color:var(--primary);font-size:.94rem}
+.safe-buy{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(204,255,0,.28)}
+.sb-tag{font-family:var(--font-m);font-size:.56rem;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin-bottom:10px}
+.sb-line{font-size:.74rem;line-height:1.7;color:var(--faint);margin-bottom:8px;max-width:none}
+.sb-line span{font-family:var(--font-m);font-size:.62rem;letter-spacing:.1em;color:var(--muted)}
+.sb-vow{margin-top:12px;font-size:.78rem;line-height:1.65;color:var(--faint);max-width:none}
+.sb-vow b{display:inline-block;color:var(--primary);font-size:.84rem;text-shadow:0 0 18px rgba(204,255,0,.35)}
 .logo-orb{cursor:pointer;transition:filter .35s var(--ease)}
 .logo-orb.orb-hot{filter:drop-shadow(0 0 30px rgba(204,255,0,.35)) drop-shadow(0 0 70px rgba(226,87,27,.3))}
 .orb-hot .orb-img img{filter:saturate(1.3) brightness(1.07)}
@@ -707,15 +701,15 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
       </span>
     </div>
     <div class="stats-grid">
-      <div class="stat-cell"><span class="k" data-s="priceUsd">, </span><span class="l">PRICE USD</span></div>
-      <div class="stat-cell"><span class="k" data-s="priceNative">, </span><span class="l">PRICE SPCX</span></div>
-      <div class="stat-cell"><span class="k" data-s="h1">, </span><span class="l">1H Δ</span></div>
-      <div class="stat-cell"><span class="k" data-s="h6">, </span><span class="l">6H Δ</span></div>
-      <div class="stat-cell"><span class="k" data-s="h24">, </span><span class="l">24H Δ</span></div>
-      <div class="stat-cell"><span class="k" data-s="vol">, </span><span class="l">24H VOLUME</span></div>
-      <div class="stat-cell"><span class="k" data-s="fdv">, </span><span class="l">FDV</span></div>
-      <div class="stat-cell"><span class="k" data-s="mcap">, </span><span class="l">MARKET CAP</span></div>
-      <div class="stat-cell"><span class="k" data-s="txns">, </span><span class="l">24H TXNS B/S</span></div>
+      <div class="stat-cell"><span class="k" data-s="priceUsd">···</span><span class="l">PRICE USD</span></div>
+      <div class="stat-cell"><span class="k" data-s="priceNative">···</span><span class="l">PRICE SPCX</span></div>
+      <div class="stat-cell"><span class="k" data-s="h1">···</span><span class="l">1H Δ</span></div>
+      <div class="stat-cell"><span class="k" data-s="h6">···</span><span class="l">6H Δ</span></div>
+      <div class="stat-cell"><span class="k" data-s="h24">···</span><span class="l">24H Δ</span></div>
+      <div class="stat-cell"><span class="k" data-s="vol">···</span><span class="l">24H VOLUME</span></div>
+      <div class="stat-cell"><span class="k" data-s="fdv">···</span><span class="l">FDV</span></div>
+      <div class="stat-cell"><span class="k" data-s="mcap">···</span><span class="l">MARKET CAP</span></div>
+      <div class="stat-cell"><span class="k" data-s="txns">···</span><span class="l">24H TXNS B/S</span></div>
     </div>
   </div>
 </div>
@@ -750,10 +744,10 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     <div class="hero-chev" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><use href="#i-chevd"/></svg></div>
     <div class="hero-strip">
       <div class="in">
-        <span class="kv">PX <b class="dir" data-s="priceUsd">, </b></span>
-        <span class="kv">24H <b class="d24" data-s="h24">, </b></span>
-        <span class="kv">VOL <b data-s="vol">, </b></span>
-        <span class="kv">MCAP <b data-s="mcap">, </b></span>
+        <span class="kv">PX <b class="dir" data-s="priceUsd">···</b></span>
+        <span class="kv">24H <b class="d24" data-s="h24">···</b></span>
+        <span class="kv">VOL <b data-s="vol">···</b></span>
+        <span class="kv">MCAP <b data-s="mcap">···</b></span>
         <span class="kv">PAIR <b style="color:var(--muted);font-weight:500">SPACEDADDY / SPCX</b></span>
         <span class="ca-mini">
           <span class="lbl">CA</span>
@@ -768,8 +762,8 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span><b>$SPACEDADDY</b>&nbsp; <span class="tk-px">, </span> &nbsp;·&nbsp; MEMETICS × TOKENIZED STONKS &nbsp;·&nbsp; <i>ROBINHOOD CHAIN L2</i> &nbsp;·&nbsp; PAIRED VS SPCX &nbsp;·&nbsp; SEE YOU SPACE COWBOY &nbsp;·&nbsp; </span>
-      <span><b>$SPACEDADDY</b>&nbsp; <span class="tk-px">, </span> &nbsp;·&nbsp; MEMETICS × TOKENIZED STONKS &nbsp;·&nbsp; <i>ROBINHOOD CHAIN L2</i> &nbsp;·&nbsp; PAIRED VS SPCX &nbsp;·&nbsp; SEE YOU SPACE COWBOY &nbsp;·&nbsp; </span>
+      <span><b>$SPACEDADDY</b>&nbsp; <span class="tk-px">···</span> &nbsp;·&nbsp; MEMETICS × TOKENIZED STONKS &nbsp;·&nbsp; <i>ROBINHOOD CHAIN L2</i> &nbsp;·&nbsp; PAIRED VS SPCX &nbsp;·&nbsp; SEE YOU SPACE COWBOY &nbsp;·&nbsp; </span>
+      <span><b>$SPACEDADDY</b>&nbsp; <span class="tk-px">···</span> &nbsp;·&nbsp; MEMETICS × TOKENIZED STONKS &nbsp;·&nbsp; <i>ROBINHOOD CHAIN L2</i> &nbsp;·&nbsp; PAIRED VS SPCX &nbsp;·&nbsp; SEE YOU SPACE COWBOY &nbsp;·&nbsp; </span>
     </div>
   </div>
 
@@ -792,7 +786,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
             <a class="btn btn-outline" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">
               <svg class="icon icon-s" aria-hidden="true"><use href="#i-swap"/></svg> UNISWAP <svg class="icon icon-s" aria-hidden="true"><use href="#i-ext"/></svg>
             </a>
-            <span class="meta">24H TXNS <b data-s="txns">, </b></span>
+            <span class="meta">24H TXNS <b data-s="txns">···</b></span>
           </div>
         </div>
         <div class="cell feed-cell">
@@ -806,7 +800,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
               <a class="btn btn-danger" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18&outputCurrency=NATIVE" target="_blank" rel="noopener">▼ SELL</a>
             </div>
             <div class="txfeed-list" id="txfeed-list" tabindex="0" aria-label="Live SPACEDADDY transaction feed"><div class="txempty">SYNCING FEED…</div></div>
-            <div class="feed-foot"><span>SRC BLOCKSCOUT · 20S POLL</span><span>B/S <b data-s="txns">, </b></span></div>
+            <div class="feed-foot"><span>SRC BLOCKSCOUT · 20S POLL</span><span>B/S <b data-s="txns">···</b></span></div>
           </div>
         </div>
       </div>
@@ -825,29 +819,27 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
                   <input class="uni-amt" id="uni-in" type="text" inputmode="decimal" value="0.001" aria-label="ETH amount to sell">
                   <span class="uni-pill"><span class="tok"><svg class="icon" aria-hidden="true"><use href="#i-eth"/></svg></span>ETH</span>
                 </div>
-                <div class="uni-sub" id="uni-in-usd">$, </div>
+                <div class="uni-sub" id="uni-in-usd">$···</div>
               </div>
               <div class="uni-conn"><span><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></span></div>
               <div class="uni-card">
                 <div class="uni-lbl">Buy</div>
                 <div class="uni-row">
-                  <span class="uni-out" id="uni-out">, </span>
+                  <span class="uni-out" id="uni-out">···</span>
                   <span class="uni-pill"><img src="data:image/jpeg;base64,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" alt="">SD</span>
                 </div>
-                <div class="uni-sub" id="uni-out-usd">$, </div>
+                <div class="uni-sub" id="uni-out-usd">$···</div>
               </div>
               <a class="uni-review" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18" target="_blank" rel="noopener">Review</a>
-              <div class="uni-foot"><span id="uni-rate">1 SPACEDADDY =, </span><span>ROUTED VIA UNISWAP</span></div>
+              <div class="uni-foot"><span id="uni-rate">1 SPACEDADDY = ··· </span><span>ROUTED VIA UNISWAP</span></div>
               <div class="uni-note">SELF-CUSTODY · SWAPS EXECUTE ON APP.UNISWAP.ORG · THIS SITE NEVER TOUCHES FUNDS</div>
             </div>
             <div class="safe-buy">
-              <div class="sb-head">SAFE BUYING PROTOCOL // THREE ROUTES, SAME DESTINATION</div>
-              <ol class="sb-list">
-                <li><b>Manual and fully verified:</b> open app.uniswap.org yourself, select Robinhood Chain, paste the contract address copied from this page, confirm the token reads SPACEDADDY, then swap. The slowest route and the most certain.</li>
-                <li><b>One click through UniDaddy:</b> press Review above and Uniswap opens in a new tab with the chain and token pre-filled. Before confirming anything, double check that the address shown matches the CA published on this page.</li>
-                <li><b>Inside your own wallet:</b> paste the contract address into the swap screen of your wallet app (MetaMask, Rabby, Coinbase Wallet, Phantom and similar) and trade there. Your keys never leave your wallet.</li>
-              </ol>
-              <p class="sb-warn"><b>This Website will never ask you to connect your wallet.</b> No pop ups, no signature requests, no approvals. If anything claiming to be SpaceDaddy asks for a wallet connection or a seed phrase, close it and report it.</p>
+              <div class="sb-tag">// READ BEFORE BUYING, THREE SAFE ROUTES</div>
+              <p class="sb-line"><span>&gt; MANUAL:</span> open app.uniswap.org yourself, select Robinhood Chain, paste the contract address copied from this page, confirm the token reads SPACEDADDY, then swap. The slowest route and the most certain.</p>
+              <p class="sb-line"><span>&gt; UNIDADDY:</span> press Review above and Uniswap opens in a new tab with the chain and token pre-filled. Double check the address against the CA published on this page before confirming anything.</p>
+              <p class="sb-line"><span>&gt; YOUR WALLET:</span> paste the contract address into the swap screen of your own wallet app (MetaMask, Rabby, Coinbase Wallet, Phantom and similar) and trade there. Your keys never leave your wallet.</p>
+              <p class="sb-vow"><b>This Website will never ask you to connect your wallet.</b> No pop ups, no signature requests, no approvals. If anything claiming to be SpaceDaddy asks for a wallet connection or a seed phrase, close it.</p>
             </div>
           </div>
         </div>
@@ -911,7 +903,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
             <div class="flow-node">
               <span class="fn-ic"><svg class="icon icon-l" aria-hidden="true"><use href="#i-eth"/></svg></span>
               <b>ETH</b>
-              <span class="fn-px" data-s="ethUsd">$, </span>
+              <span class="fn-px" data-s="ethUsd">$···</span>
               <span class="fn-sub">ENTRY ASSET · L2 GAS · WRAPPED TO WETH ON ARRIVAL</span>
             </div>
             <div class="flow-line" aria-hidden="true"><span class="pk-clip"><span class="pk"></span></span><span class="fl-lbl">WRAP + SWAP · V3</span></div>
@@ -925,14 +917,14 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
             <div class="flow-node">
               <span class="fn-ic"><svg class="icon icon-l" aria-hidden="true"><use href="#i-rocket"/></svg></span>
               <b>SPCX</b>
-              <span class="fn-px" data-s="spcxUsd">$, </span>
+              <span class="fn-px" data-s="spcxUsd">$···</span>
               <span class="fn-sub">SPACE EXPLORATION TECHNOLOGIES CORP • ROBINHOOD TOKEN</span>
             </div>
             <div class="flow-line" aria-hidden="true"><span class="pk-clip"><span class="pk"></span></span><span class="fl-lbl">SWAP · V4 + HOOK</span></div>
             <div class="flow-node">
               <span class="fn-ic"><img src="data:image/jpeg;base64,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" alt=""></span>
               <b>SPACEDADDY</b>
-              <span class="fn-px" data-s="priceUsd">$, </span>
+              <span class="fn-px" data-s="priceUsd">$···</span>
               <span class="fn-sub">THE MEME · QUOTED &amp; SETTLED IN SPCX</span>
             </div>
           </div>
@@ -958,11 +950,11 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
           <div class="cell-head"><span>SD·MECH·MATH // DENOMINATION</span><span class="dot"></span></div>
           <div class="cell-body">
             <div class="formula" aria-label="Price identity">
-              <b data-s="priceUsd">$, </b><span class="fx">SD/USD</span>
+              <b data-s="priceUsd">$···</b><span class="fx">SD/USD</span>
               <span class="fx">=</span>
-              <b data-s="priceNative">, </b><span class="fx">SD/SPCX</span>
+              <b data-s="priceNative">···</b><span class="fx">SD/SPCX</span>
               <span class="fx">×</span>
-              <b data-s="spcxUsd">$, </b><span class="fx">SPCX/USD</span>
+              <b data-s="spcxUsd">$···</b><span class="fx">SPCX/USD</span>
             </div>
             <p class="mech-p">Because the pool quotes SPACEDADDY in SPCX, the meme's dollar price is a <b>product of two markets</b>: its own price in SpaceX-stock units, and SpaceX stock's price in dollars. Hold SD/SPCX steady while SPCX rallies and the meme's dollar chart climbs with the rocket, that is the stonk gravity.</p>
             <p class="mech-p">It cuts both ways: <b>two exposures, two risks</b>. A drawdown in either leg drags the dollar price. SPCX itself is a third-party tokenized-stock instrument with ≈$1M of onchain liquidity across USDG and ETH pools and ≈20,000 holders, deep next to the meme, thin next to Wall Street. Nothing here is investment advice; the math is just the math.</p>
@@ -992,7 +984,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
             <h3>SPCX, the settlement layer</h3>
             <ul class="spec">
               <li><span class="k">Name</span><span class="v">SPACEX • ROBINHOOD TOKEN</span></li>
-              <li><span class="k">Price</span><span class="v" data-s="spcxUsd">$, </span></li>
+              <li><span class="k">Price</span><span class="v" data-s="spcxUsd">$···</span></li>
               <li><span class="k">Holders</span><span class="v">≈20,600 · AT SCAN</span></li>
               <li><span class="k">Liquidity</span><span class="v">≈$1.0M · USDG + ETH POOLS</span></li>
               <li><span class="k">Contract</span><span class="v"><a href="https://robinhoodchain.blockscout.com/token/0x4a0E65A3EcceC6dBe60AE065F2e7bb85Fae35eEa" target="_blank" rel="noopener">0x4a0E…5eEa ↗</a></span></li>
@@ -1385,17 +1377,17 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     return { subscribe: function(f){ subs.push(f); if(data.pair) f(data); }, refresh: refresh, get: function(){ return data; } };
   })();
 
-  function fUsd(v){ if(v == null || isNaN(v)) return ", "; v = +v;
+  function fUsd(v){ if(v == null || isNaN(v)) return "···"; v = +v;
     if(v >= 1) return "$" + v.toLocaleString("en-US", {maximumFractionDigits:2});
     return "$" + v.toPrecision(3);
   }
-  function fBig(v){ if(v == null || isNaN(v)) return ", "; v = +v;
+  function fBig(v){ if(v == null || isNaN(v)) return "···"; v = +v;
     if(v >= 1e9) return "$" + (v/1e9).toFixed(2) + "B";
     if(v >= 1e6) return "$" + (v/1e6).toFixed(2) + "M";
     if(v >= 1e3) return "$" + (v/1e3).toFixed(1) + "K";
     return "$" + v.toFixed(0);
   }
-  function fPct(v){ if(v == null || isNaN(v)) return {t:", ", c:""}; v = +v; var up = v >= 0;
+  function fPct(v){ if(v == null || isNaN(v)) return {t:"···", c:""}; v = +v; var up = v >= 0;
     return { t: (up ? "\u25B2 +" : "\u25BC ") + v.toFixed(2) + "%", c: up ? "up" : "down" };
   }
   function setStat(key, txt, cls){
