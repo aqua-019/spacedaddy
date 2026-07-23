@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>SPACEDADDY — $SPACEDADDY on Robinhood Chain</title>
 <meta name="description" content="SPACEDADDY — the 2016 Rare Pepe prophecy, revived as a token on Robinhood Chain (Ethereum L2). Paired against SPCX tokenized SpaceX stock on Uniswap. Memetics × space-grade tokenized stonks.">
 <meta name="theme-color" content="#070B08">
@@ -515,6 +515,90 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
   .ticker-track{animation:none}
   html{scroll-behavior:auto}
 }
+
+/* ================================================================
+   MOBILE OVERHAUL — intentional touch-first pass (cascade-final)
+   ================================================================ */
+.menu-btn{display:none}
+.m-menu{position:fixed;inset:0;z-index:150;background:rgba(5,8,6,.98);display:flex;flex-direction:column;
+  padding:16px 20px calc(20px + env(safe-area-inset-bottom));opacity:0;transition:opacity .28s var(--ease)}
+.m-menu.open{opacity:1}
+.m-menu[hidden]{display:none}
+.m-head{display:flex;align-items:center;justify-content:space-between;min-height:58px;border-bottom:1px solid var(--line)}
+.m-title{font-family:var(--font-m);font-size:.68rem;letter-spacing:.22em;color:var(--faint)}
+.m-links{display:flex;flex-direction:column;margin-top:10px;flex:1}
+.m-links a{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text);
+  font-family:var(--font-d);font-weight:600;font-size:1.55rem;letter-spacing:.04em;text-transform:uppercase;
+  padding:16px 4px;border-bottom:1px solid rgba(204,255,0,.08);
+  transform:translateX(-14px);opacity:0;transition:transform .35s var(--ease-decel),opacity .35s var(--ease-decel)}
+.m-menu.open .m-links a{transform:none;opacity:1}
+.m-links a:nth-child(1){transition-delay:40ms}.m-links a:nth-child(2){transition-delay:80ms}
+.m-links a:nth-child(3){transition-delay:120ms}.m-links a:nth-child(4){transition-delay:160ms}
+.m-links a:nth-child(5){transition-delay:200ms}.m-links a:nth-child(6){transition-delay:240ms}
+.m-links a i{font-style:normal;font-family:var(--font-m);font-size:.66rem;color:var(--accent);letter-spacing:.2em}
+.m-links a:active{color:var(--primary)}
+.m-foot{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:14px}
+.m-foot .btn{min-height:52px;font-size:.72rem}
+@media (max-width:860px){
+  .menu-btn{display:inline-flex}
+  .nav{gap:12px;height:64px}
+  .stats-panel{top:72px}
+  section{scroll-margin-top:76px}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  .section{padding:56px 0}
+  .sec-head{gap:10px}
+  .sec-head h2{font-size:clamp(1.5rem,6.4vw,2rem)}
+  .lede{font-size:.95rem;margin-bottom:24px}
+  /* hero, rescaled with intent */
+  .hero{padding-top:118px}
+  .hero h1.hero-word{font-size:clamp(40px,11.5vw,54px);margin-bottom:14px}
+  .sys-strip{font-size:.56rem;letter-spacing:.12em;padding:8px 10px;gap:8px}
+  .hero-stage{margin-top:28px;height:min(56vw,250px)}
+  .logo-orb{width:min(56vw,250px)}
+  .hero .tag{margin-top:26px;font-size:1rem}
+  .hero .sub{font-size:.88rem}
+  .hero-ctas{margin-top:22px;gap:10px}
+  .hero-ctas .btn{flex:1 1 100%;min-height:52px}
+  .hero-strip .in{flex-wrap:nowrap;overflow-x:auto;gap:18px;padding:0 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .hero-strip .in::-webkit-scrollbar{display:none}
+  .hero-strip .in > *{flex:none}
+  /* backdrop: calmer + cheaper on phones */
+  .aur-b{display:none}
+  .mars{width:64vw;right:-30vw;top:10vh;opacity:.55}
+  /* swap + chart */
+  .uni-amt,.uni-out{font-size:1.6rem}
+  .uni-shell{padding:10px}
+  .chart-cell .chart-box{aspect-ratio:auto;height:min(58vh,420px)}
+  .mode-tabs{justify-content:stretch}
+  .mode-tabs .mbtn{flex:1;padding:8px 6px;font-size:.56rem}
+  /* cells + type density */
+  .cell-body{padding:18px}
+  .cell-head{padding:9px 12px;font-size:.56rem}
+  .pcard{padding:16px;gap:12px}
+  .p-num{font-size:1.2rem}
+  .trace li{gap:10px;padding:9px 0}
+  .t-desc{font-size:.86rem}
+  .mech-p{font-size:.88rem}
+  .formula{font-size:.7rem;padding:11px}
+  blockquote.concept{font-size:clamp(1.05rem,4.6vw,1.3rem);padding-left:16px;margin-bottom:28px}
+  .x-card{padding:22px}
+  .foot .links{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%}
+  .foot .links a{padding:0 8px}
+  footer{padding-bottom:132px}
+  .mobile-bar .btn{font-size:.68rem;letter-spacing:.08em}
+  .stats-inner{padding:10px}
+  .stats-top{font-size:.56rem}
+}
+@media (max-width:400px){
+  .hero h1.hero-word{font-size:clamp(36px,11vw,44px)}
+  .sys-strip{font-size:.5rem}
+  .nav-actions #stats-toggle{padding:10px 12px;font-size:.68rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .m-links a{transform:none;opacity:1;transition:none}
+}
 </style>
 </head>
 <body>
@@ -578,6 +662,9 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
       <a href="#token">TOKEN</a>
     </nav>
     <div class="nav-actions">
+      <button class="btn btn-icon menu-btn" id="menu-btn" aria-expanded="false" aria-controls="m-menu" aria-label="Open menu">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
       <button class="btn btn-outline" id="stats-toggle" aria-expanded="false" aria-controls="stats-panel" style="min-height:44px;padding:10px 18px;font-size:.75rem">
         <svg class="icon icon-s" aria-hidden="true"><use href="#i-chart"/></svg> STATS
       </button>
@@ -1076,6 +1163,25 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
   </div>
 </footer>
 
+<div class="m-menu" id="m-menu" hidden>
+  <div class="m-head">
+    <span class="m-title">SPACEDADDY // NAV</span>
+    <button class="btn btn-icon" id="menu-close" aria-label="Close menu"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+  <nav class="m-links" aria-label="Mobile">
+    <a href="#trade"><i>01</i>TRADE</a>
+    <a href="#concept"><i>02</i>CONCEPT</a>
+    <a href="#mechanics"><i>03</i>MECHANICS</a>
+    <a href="#lore"><i>04</i>LORE</a>
+    <a href="#token"><i>05</i>TOKEN</a>
+    <a href="#community"><i>06</i>COMMUNITY</a>
+  </nav>
+  <div class="m-foot">
+    <a class="btn btn-x" href="https://x.com/SpacedaddyRH" target="_blank" rel="noopener"><svg class="icon icon-s" aria-hidden="true"><use href="#i-x"/></svg> X ACCOUNT</a>
+    <a class="btn btn-outline" href="https://robinhoodchain.blockscout.com/token/0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18?tab=index" target="_blank" rel="noopener">TOKEN CONTRACT</a>
+  </div>
+</div>
+
 <div class="zoom-layer" hidden aria-hidden="true"><img class="zoom-img" alt=""></div>
 
 <div class="mobile-bar">
@@ -1446,6 +1552,31 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: .15, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll(".rv").forEach(function(el){ io.observe(el); });
+
+  /* ============ MOBILE MENU ============ */
+  (function(){
+    var mb = document.getElementById("menu-btn");
+    var menu = document.getElementById("m-menu");
+    var mc = document.getElementById("menu-close");
+    if(!mb || !menu) return;
+    function setMenu(o){
+      if(o){
+        menu.hidden = false;
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ menu.classList.add("open"); }); });
+      } else {
+        menu.classList.remove("open");
+        setTimeout(function(){ menu.hidden = true; }, 300);
+      }
+      mb.setAttribute("aria-expanded", String(o));
+      document.body.style.overflow = o ? "hidden" : "";
+    }
+    mb.addEventListener("click", function(){ setMenu(menu.hidden); });
+    mc.addEventListener("click", function(){ setMenu(false); });
+    menu.querySelectorAll(".m-links a").forEach(function(a){
+      a.addEventListener("click", function(){ setMenu(false); });
+    });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !menu.hidden) setMenu(false); });
+  })();
 
   /* ============ LORE CARD — hover zoom lightbox (FLIP) ============ */
   (function(){
