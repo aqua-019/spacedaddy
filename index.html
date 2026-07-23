@@ -382,7 +382,13 @@ body.perf-lite .pk{animation-duration:3s}
 /* ============ LORE — the prophecy card ============ */
 .lore-wrap{display:grid;grid-template-columns:minmax(240px,300px) minmax(0,560px);gap:24px;justify-content:center;align-items:start}
 .lore-fig{margin:0;background:#000;align-self:start}
-.lore-fig img{width:100%;height:auto;display:block;aspect-ratio:348/504}
+.lore-fig img{width:100%;height:auto;display:block;aspect-ratio:348/504;cursor:zoom-in}
+.zoom-layer{position:fixed;inset:0;z-index:200;pointer-events:none;background:rgba(5,8,6,0);transition:background .45s var(--ease)}
+.zoom-layer[hidden]{display:none}
+.zoom-layer.on{background:rgba(5,8,6,.87)}
+.zoom-img{position:fixed;left:0;top:0;pointer-events:auto;will-change:transform;transform-origin:top left;
+  border:1px solid var(--line-2);background:#000;cursor:zoom-out;
+  box-shadow:0 40px 120px rgba(0,0,0,.75),0 0 90px rgba(74,222,128,.14)}
 .lore-fig figcaption{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line);
   font-family:var(--font-m);font-size:.58rem;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
 .lore-fig figcaption a{color:var(--muted);text-decoration:none}
@@ -1035,6 +1041,8 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
   </div>
 </footer>
 
+<div class="zoom-layer" hidden aria-hidden="true"><img class="zoom-img" alt=""></div>
+
 <div class="mobile-bar">
   <button class="btn btn-primary copy-btn" data-copy="0x61BA0e059Ee870d5FD189c2EFc906B5efD141E18"><span class="txt">COPY CA</span></button>
   <a class="btn btn-outline" href="#trade">SWAP</a>
@@ -1403,6 +1411,70 @@ footer{border-top:1px solid var(--line);padding:48px 0 140px;margin-top:48px}
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
   }, { threshold: .15, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll(".rv").forEach(function(el){ io.observe(el); });
+
+  /* ============ LORE CARD — hover zoom lightbox (FLIP) ============ */
+  (function(){
+    var fig = document.querySelector(".lore-fig");
+    var figImg = fig && fig.querySelector("img");
+    var layer = document.querySelector(".zoom-layer");
+    var zimg = layer && layer.querySelector(".zoom-img");
+    if(!fig || !figImg || !layer || !zimg) return;
+    var coarse = matchMedia("(pointer: coarse)").matches;
+    var openState = false, closing = false, t = null;
+    zimg.src = figImg.getAttribute("src");
+    function targetRect(){
+      var ar = 348 / 504;
+      var fh = Math.min(innerHeight * .86, 860);
+      var fw = fh * ar;
+      if(fw > innerWidth * .84){ fw = innerWidth * .84; fh = fw / ar; }
+      return { x: (innerWidth - fw) / 2, y: (innerHeight - fh) / 2, w: fw, h: fh };
+    }
+    function openZoom(){
+      if(openState) return;
+      openState = true; closing = false;
+      var r = figImg.getBoundingClientRect(), f = targetRect();
+      zimg.style.left = f.x + "px"; zimg.style.top = f.y + "px";
+      zimg.style.width = f.w + "px"; zimg.style.height = f.h + "px";
+      zimg.style.transition = "none";
+      zimg.style.transform = "translate(" + (r.left - f.x) + "px," + (r.top - f.y) + "px) scale(" + (r.width / f.w) + "," + (r.height / f.h) + ")";
+      layer.hidden = false;
+      layer.style.pointerEvents = coarse ? "auto" : "none";
+      figImg.style.visibility = "hidden";
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        zimg.style.transition = "transform .5s cubic-bezier(.2,.9,.25,1)";
+        zimg.style.transform = "none";
+        layer.classList.add("on");
+      }); });
+    }
+    function closeZoom(){
+      if(!openState || closing) return;
+      closing = true;
+      var r = figImg.getBoundingClientRect(), f = targetRect();
+      zimg.style.transition = "transform .42s cubic-bezier(.3,0,.2,1)";
+      zimg.style.transform = "translate(" + (r.left - f.x) + "px," + (r.top - f.y) + "px) scale(" + (r.width / f.w) + "," + (r.height / f.h) + ")";
+      layer.classList.remove("on");
+      setTimeout(function(){
+        layer.hidden = true;
+        figImg.style.visibility = "";
+        openState = false; closing = false;
+      }, 440);
+    }
+    function scheduleClose(){
+      clearTimeout(t);
+      t = setTimeout(function(){ closeZoom(); }, 140);
+    }
+    if(!coarse){
+      fig.addEventListener("mouseenter", function(){ clearTimeout(t); openZoom(); });
+      fig.addEventListener("mouseleave", scheduleClose);
+      zimg.addEventListener("mouseenter", function(){ clearTimeout(t); });
+      zimg.addEventListener("mouseleave", scheduleClose);
+    } else {
+      fig.addEventListener("click", function(){ openState ? closeZoom() : openZoom(); });
+      layer.addEventListener("click", function(){ closeZoom(); });
+    }
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeZoom(); });
+    addEventListener("scroll", function(){ if(openState && !closing){ clearTimeout(t); closeZoom(); } }, { passive: true });
+  })();
 
   /* ============ MECH ROUTE — scenario toggle ============ */
   (function(){
